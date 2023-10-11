@@ -2,6 +2,7 @@
 	<h1>
 		{{ name }}
 	</h1>
+	<input type="text" v-model="name">
 	<button @click="placeOrder">Place Order</button>
 
 	<YummyMeal name="Hamburguer 🍔" :price="5" @addToCart="addItemToCart" />
@@ -9,11 +10,12 @@
 
 <script>
 	import YummyMeal from './components/YummyMeal.vue'
+	import { ref } from "vue"
 
 	export default {
 		components: {YummyMeal},
 		setup(){
-			const name = "The Snazzy Burger"
+			const name = ref("The Snazzy Burger")
 
 			const placeOrder = () => alert("You're order has been placed!")
 			const addItemToCart = (item) => alert(`One ${item} added to the cart!`)
