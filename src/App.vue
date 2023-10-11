@@ -3,15 +3,22 @@
 		{{ name }}
 	</h1>
 	<button @click="placeOrder">Place Order</button>
+
+	<YummyMeal name="Hamburguer 🍔" :price="5" @addToCart="addItemToCart" />
 </template>
 
 <script>
+	import YummyMeal from './components/YummyMeal.vue'
+
 	export default {
+		components: {YummyMeal},
 		setup(){
 			const name = "The Snazzy Burger"
 
-			const placeOrder = () => { alert("You're order has been placed!") }
-			return { name, placeOrder }
+			const placeOrder = () => alert("You're order has been placed!")
+			const addItemToCart = (item) => alert(`One ${item} added to the cart!`)
+
+			return { name, placeOrder, addItemToCart }
 		},
 
 		
