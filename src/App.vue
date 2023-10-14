@@ -5,16 +5,30 @@
 	<input type="text" v-model="name">
 	<button @click="placeOrder">Place Order</button>
 	<button @click="removeWatcher">Hide Cart Alerts</button>
-	<YummyMeal v-for="meal in meals" :name="meal.name" :price="meal.price" @addToCart="addItemToCart" />
+
+	<br><br>
+	<label for="currencySymbol">Currency</label>
+	<select v-model="currencySymbol">
+		<option value="$">Dollars ($)</option>
+		<option value="R$">Real (R$)</option>
+	</select>
+
+	<YummyMeal v-for="meal in meals" 
+		:name="meal.name" 
+		:price="meal.price" 
+		@addToCart="addItemToCart"
+	/>
 </template>
 
 <script>
 	import YummyMeal from './components/YummyMeal.vue'
-	import { ref, reactive, watch } from "vue"
+	import { ref, reactive, watch, provide } from "vue"
 
 	export default {
 		components: { YummyMeal },
 		setup(){
+			const currencySymbol = ref("$")
+			provide("currencySymbol", currencySymbol);
 			const cart =  reactive([])
 			const name = ref("The Snazzy Burger")
 			const meals = reactive([
@@ -34,7 +48,7 @@
 				}
 			)
 
-			return { name, placeOrder, addItemToCart, meals, removeWatcher }
+			return { name, placeOrder, addItemToCart, meals, removeWatcher, currencySymbol }
 		},
 	}
 </script>
