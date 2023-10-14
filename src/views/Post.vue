@@ -7,6 +7,7 @@
 </template>
 <script setup>
     import { useRoute } from "vue-router"
+    import { watch } from "vue";
     import useResource from "../composables/useResource.js";
     //post
     const route = useRoute()
@@ -14,5 +15,8 @@
     fetchPost(route.params.id)
     //users
     const { item: user, fetchOne: fetchUser } = useResource("users")
-    fetchUser(1)
+    watch(
+        () => ({...post.value}),
+        () => fetchUser(post.value.userId)
+    )
 </script>
