@@ -6,17 +6,20 @@
     </div>
 </template>
 <script setup>
-    import { useRoute } from "vue-router"
-    import { watch } from "vue";
-    import useResource from "../composables/useResource.js";
-    //post
-    const route = useRoute()
-    const { item: post, fetchOne: fetchPost } = useResource("posts")
-    fetchPost(route.params.id)
-    //users
-    const { item: user, fetchOne: fetchUser } = useResource("users")
-    watch(
-        () => ({...post.value}),
-        () => fetchUser(post.value.userId)
-    )
+import { useRoute } from 'vue-router'
+import { watch } from 'vue'
+import useResource from '../composables/useResource.js'
+const route = useRoute()
+
+//Post
+const { item: post, fetchOne: fetchPost } = useResource('posts')
+fetchPost(route.params.id)
+
+// User
+const { item: user, fetchOne: fetchUser } = useResource('users');
+watch(
+    () => ({ ...post.value }),
+    () => fetchUser(post.value.userId)
+)
+
 </script>
